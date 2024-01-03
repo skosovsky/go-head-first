@@ -2,15 +2,13 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
+	"github.com/skosovsky/go-head-first/datafile"
 	"log"
-	"os"
-	"strconv"
 )
 
 func main() {
-	numbers, err := getFloats("data.txt")
+	numbers, err := datafile.GetFloats("data.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -23,34 +21,4 @@ func main() {
 
 	sampleCount := float64(len(numbers))
 	fmt.Printf("Average: %0.2f\n", sum/sampleCount)
-}
-
-// getFloats читает значения float64 из каждой строки файла
-func getFloats(filePath string) ([]float64, error) {
-	var numbers []float64
-	file, err := os.Open(filePath)
-	if err != nil {
-		return nil, err
-	}
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		var number float64
-		number, err = strconv.ParseFloat(scanner.Text(), 64)
-		if err != nil {
-			return nil, err
-		}
-		numbers = append(numbers, number)
-	}
-
-	err = file.Close()
-	if err != nil {
-		return nil, err
-	}
-
-	if scanner.Err() != nil {
-		return nil, scanner.Err()
-	}
-
-	return numbers, nil
 }
