@@ -1,11 +1,34 @@
 package prose
 
-import "testing"
+import (
+	"testing"
+)
 
-func TestTwoElements(t *testing.T) {
-	t.Error("no test written yet")
+type testData struct {
+	list []string
+	want string
 }
 
-func TestThreeElements(t *testing.T) {
-	t.Error("no test here either")
+func TestJoinWithCommas(t *testing.T) {
+	tests := []testData{
+		{
+			list: []string{"apple"},
+			want: "apple",
+		},
+		{
+			list: []string{"apple", "orange"},
+			want: "apple and orange",
+		},
+		{
+			list: []string{"apple", "orange", "pear"},
+			want: "apple, orange, and pear",
+		},
+	}
+
+	for _, test := range tests {
+		got := JoinWithCommas(test.list)
+		if got != test.want {
+			t.Errorf("JoinWithCommas(%#v) = %q, want %q", test.list, got, test.want)
+		}
+	}
 }
