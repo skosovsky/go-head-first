@@ -12,6 +12,10 @@ type testData struct {
 func TestJoinWithCommas(t *testing.T) {
 	tests := []testData{
 		{
+			list: []string{},
+			want: "",
+		},
+		{
 			list: []string{"apple"},
 			want: "apple",
 		},
